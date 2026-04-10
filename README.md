@@ -2,7 +2,7 @@
 
 a dark-themed hugo documentation template for audio software, creative tools, and synth manuals.
 
-dark purple-black background, gold accents, monospace headings, and audio-specific shortcodes. designed for plugin developers, hardware makers, and creative coders who want docs that match their software's aesthetic.
+dark purple-black background, gold accents, monospace headings, and audio-specific shortcodes.
 
 ## installation
 
@@ -186,7 +186,7 @@ click to zoom. press escape or click the overlay to close.
 
 ## features
 
-- **dark theme** — `#1d1921` background, not an afterthought toggle
+- **dark theme** — `#1d1921` background
 - **fuzzy search** — fuse.js with weighted title/description/content matching
 - **responsive** — tested at 320px, 768px, 1024px, 1440px
 - **mobile sidebar** — hamburger menu with overlay drawer
@@ -196,13 +196,12 @@ click to zoom. press escape or click the overlay to close.
 - **copy button** — appears on hover for all code blocks
 - **print stylesheet** — clean output with nav/sidebar hidden
 - **SEO** — open graph, twitter cards, structured data
-- **no build tools** — pure CSS, no npm/postcss/tailwind required
+- **no build tools** — pure CSS
 - **custom syntax theme** — chroma colors matched to the brand palette
 
 ## requirements
 
 - hugo v0.120.0 or later (extended edition recommended)
-- no node.js or npm dependencies
 - fuse.js loaded from CDN on first search interaction
 
 ## license
