@@ -1,0 +1,31 @@
+baseURL = "https://example.com/"
+languageCode = "en-us"
+title = "synthwave — audio plugin docs"
+theme = "audiodoc"
+
+[params]
+  description = "documentation for the synthwave audio plugin"
+  tagline = "find your noise~"
+  search_enabled = true
+  callout_icon = "🥭"
+  callout_title = "find your noise"
+
+  # social links (shown in footer area)
+  github = "https://github.com/example/synthwave"
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    lineNos = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[outputs]
+  home = ["HTML", "JSON"]
+
+[outputFormats.JSON]
+  mediaType = "application/json"
+  baseName = "index"

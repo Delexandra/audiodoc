@@ -1,0 +1,14 @@
+{{/* audio player shortcode — params: src, title, type */}}
+{{ $src := .Get "src" }}
+{{ $title := .Get "title" }}
+{{ $type := .Get "type" | default "audio/mpeg" }}
+
+<div class="audio-player">
+  {{ with $title }}
+    <div class="audio-player-title">{{ . }}</div>
+  {{ end }}
+  <audio controls preload="metadata">
+    <source src="{{ $src | relURL }}" type="{{ $type }}">
+    your browser does not support the audio element.
+  </audio>
+</div>

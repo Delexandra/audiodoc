@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if not .IsHome }}{{ .Title }} — {{ end }}{{ .Site.Title }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+  {{/* Open Graph */}}
+  <meta property="og:title" content="{{ .Title }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  {{ with .Site.Params.og_image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+
+  {{/* Twitter Card */}}
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ .Title }}">
+  <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  {{ with .Site.Params.og_image }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end }}
+
+  {{/* Styles */}}
+  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+
+  {{/* Favicon */}}
+  {{ with .Site.Params.favicon }}<link rel="icon" href="{{ . | relURL }}">{{ end }}
+
+  {{ partial "head.html" . }}
+</head>
+<body>
+  {{ partial "header.html" . }}
+
+  <div class="site-wrapper">
+    {{ partial "sidebar.html" . }}
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <main class="content-area">
+      <div class="content-wrapper">
+        <article class="content-main">
+          {{ block "main" . }}{{ end }}
+        </article>
+
+        {{ if and .IsPage (not .Params.hide_toc) }}
+          {{ partial "toc.html" . }}
+        {{ end }}
+      </div>
+    </main>
+  </div>
+
+  {{/* Sidebar toggle script */}}
+  <script>
+    (function() {
+      const toggle = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+
+      if (toggle && sidebar) {
+        toggle.addEventListener('click', function() {
+          sidebar.classList.toggle('open');
+          overlay.classList.toggle('active');
+        });
+
+        if (overlay) {
+          overlay.addEventListener('click', function() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+          });
+        }
+      }
+
+      // Sidebar section toggles
+      document.querySelectorAll('.sidebar-toggle').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          this.classList.toggle('expanded');
+          this.setAttribute('aria-expanded', this.classList.contains('expanded') ? 'true' : 'false');
+          const nested = this.nextElementSibling;
+          if (nested) {
+            nested.style.display = nested.style.display === 'none' ? 'block' : 'none';
+          }
+        });
+      });
+    })();
+  </script>
+
+  {{/* Copy-to-clipboard on code blocks */}}
+  <script>
+    (function() {
+      document.querySelectorAll('pre').forEach(function(pre) {
+        var btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = 'copy';
+        btn.addEventListener('click', function() {
+          var code = pre.querySelector('code');
+          var text = code ? code.textContent : pre.textContent;
+          navigator.clipboard.writeText(text).then(function() {
+            btn.textContent = 'copied';
+            btn.classList.add('copied');
+            setTimeout(function() {
+              btn.textContent = 'copy';
+              btn.classList.remove('copied');
+            }, 2000);
+          });
+        });
+        pre.appendChild(btn);
+      });
+    })();
+  </script>
+
+  {{/* Image zoom */}}
+  <script>
+    function audiodocZoom(el) {
+      var img = el.querySelector('img');
+      var overlay = document.createElement('div');
+      overlay.className = 'zoom-overlay';
+      var zoomedImg = document.createElement('img');
+      zoomedImg.src = img.src;
+      zoomedImg.alt = img.alt;
+      overlay.appendChild(zoomedImg);
+      overlay.addEventListener('click', function() { this.remove(); });
+      document.addEventListener('keydown', function handler(e) {
+        if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', handler); }
+      });
+      document.body.appendChild(overlay);
+    }
+  </script>
+
+  {{/* Search */}}
+  {{ if .Site.Params.search_enabled | default true }}
+    <script>window.audiodocSearchIndex = "{{ "index.json" | relURL }}";</script>
+    <script src="{{ "js/search.js" | relURL }}"></script>
+  {{ end }}
+</body>
+</html>

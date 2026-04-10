@@ -1,0 +1,23 @@
+{{/* callout shortcode — types: warning, danger, info. params: type, icon, title */}}
+{{ $type := .Get "type" | default "" }}
+{{ $icon := .Get "icon" | default ($.Page.Site.Params.callout_icon | default "🥭") }}
+{{ $title := .Get "title" | default ($.Page.Site.Params.callout_title | default "find your noise") }}
+
+{{ if eq $type "warning" }}
+  {{ $icon = .Get "icon" | default "⚠️" }}
+  {{ $title = .Get "title" | default "heads up" }}
+{{ else if eq $type "danger" }}
+  {{ $icon = .Get "icon" | default "🔴" }}
+  {{ $title = .Get "title" | default "careful" }}
+{{ else if eq $type "info" }}
+  {{ $icon = .Get "icon" | default "💡" }}
+  {{ $title = .Get "title" | default "note" }}
+{{ end }}
+
+<div class="callout {{ $type }}">
+  <span class="callout-icon" aria-hidden="true">{{ $icon }}</span>
+  <div class="callout-body">
+    <div class="callout-header">{{ $title }}</div>
+    {{ .Inner | markdownify }}
+  </div>
+</div>

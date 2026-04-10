@@ -1,0 +1,4 @@
+{{/* Additional head content — override in your site's layouts/partials/head.html */}}
+{{ with .Site.Params.custom_css }}
+  <link rel="stylesheet" href="{{ . | relURL }}">
+{{ end }}

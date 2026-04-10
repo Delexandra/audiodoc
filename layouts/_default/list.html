@@ -1,0 +1,24 @@
+{{ define "main" }}
+  {{ partial "breadcrumbs.html" . }}
+
+  <h1>{{ .Title }}</h1>
+
+  {{ .Content }}
+
+  {{ if .Pages }}
+    <ul class="section-list">
+      {{ range .Pages }}
+        <li class="section-list-item">
+          <a href="{{ .RelPermalink }}">
+            <div class="section-list-title">{{ .Title }}</div>
+            {{ with .Description }}
+              <div class="section-list-desc">{{ . }}</div>
+            {{ end }}
+          </a>
+        </li>
+      {{ end }}
+    </ul>
+  {{ end }}
+
+  {{ partial "footer.html" . }}
+{{ end }}

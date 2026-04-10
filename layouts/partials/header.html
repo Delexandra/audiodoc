@@ -1,0 +1,24 @@
+<header class="site-header">
+  <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+
+  <a href="{{ .Site.BaseURL }}" class="site-logo">
+    {{ with .Site.Params.logo }}
+      <img src="{{ . | relURL }}" alt="{{ $.Site.Title }}" height="28">
+    {{ else }}
+      {{ .Site.Title }}
+    {{ end }}
+  </a>
+
+  {{ with .Site.Params.tagline }}
+    <span class="site-tagline">{{ . }}</span>
+  {{ end }}
+
+  <div class="header-spacer"></div>
+
+  {{ if .Site.Params.search_enabled | default true }}
+    <div class="header-search">
+      <input type="search" id="search-input" placeholder="search docs..." aria-label="Search documentation" autocomplete="off">
+      <div class="search-results" id="search-results"></div>
+    </div>
+  {{ end }}
+</header>

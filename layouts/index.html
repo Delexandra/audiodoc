@@ -1,0 +1,43 @@
+{{ define "main" }}
+<div class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">{{ .Site.Title }}</h1>
+    {{ with .Site.Params.tagline }}
+      <p class="hero-tagline">{{ . }}</p>
+    {{ end }}
+    {{ with .Site.Params.description }}
+      <p class="hero-desc">{{ . }}</p>
+    {{ end }}
+    {{ with .Site.GetPage "/docs" }}
+      <a href="{{ .RelPermalink }}" class="hero-cta">read the docs</a>
+    {{ end }}
+  </div>
+</div>
+
+{{ with .Content }}
+  <div class="home-content">
+    {{ . }}
+  </div>
+{{ end }}
+
+{{ $docs := .Site.GetPage "/docs" }}
+{{ with $docs }}
+  {{ if .Pages }}
+    <div class="home-sections">
+      <h2>sections</h2>
+      <div class="home-grid">
+        {{ range .Pages.ByWeight }}
+          <a href="{{ .RelPermalink }}" class="home-card">
+            <div class="home-card-title">{{ .Title }}</div>
+            {{ with .Description }}
+              <div class="home-card-desc">{{ . }}</div>
+            {{ end }}
+          </a>
+        {{ end }}
+      </div>
+    </div>
+  {{ end }}
+{{ end }}
+
+{{ partial "footer.html" . }}
+{{ end }}

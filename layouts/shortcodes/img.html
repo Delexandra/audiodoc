@@ -1,0 +1,14 @@
+{{/* zoomable image shortcode — params: src, alt, zoom */}}
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $zoom := .Get "zoom" | default false }}
+
+{{ if eq (printf "%v" $zoom) "true" }}
+<figure class="zoomable-image" onclick="audiodocZoom(this)">
+  <img src="{{ $src | relURL }}" alt="{{ $alt }}" loading="lazy">
+</figure>
+{{ else }}
+<figure>
+  <img src="{{ $src | relURL }}" alt="{{ $alt }}" loading="lazy" style="max-width:100%; border: 1px solid var(--border); border-radius: var(--radius);">
+</figure>
+{{ end }}

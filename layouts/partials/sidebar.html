@@ -1,0 +1,48 @@
+<nav class="sidebar" id="sidebar" aria-label="Documentation navigation">
+  {{ $currentPage := . }}
+  {{ $sections := where .Site.Sections "Type" "docs" }}
+
+  {{/* If no docs section exists, fall back to all sections */}}
+  {{ if not $sections }}
+    {{ $sections = .Site.Sections }}
+  {{ end }}
+
+  {{ range $sections }}
+    <div class="sidebar-section">
+      {{ if .Pages }}
+        <button class="sidebar-toggle expanded" aria-expanded="true">
+          {{ .Title }}
+        </button>
+        <ul class="sidebar-nav nested">
+          {{ range .Pages.ByWeight }}
+            <li>
+              <a href="{{ .RelPermalink }}"{{ if eq $currentPage.RelPermalink .RelPermalink }} class="active" aria-current="page"{{ end }}>
+                {{ .Title }}
+              </a>
+              {{/* Nested children */}}
+              {{ if .Pages }}
+                <ul class="nested">
+                  {{ range .Pages.ByWeight }}
+                    <li>
+                      <a href="{{ .RelPermalink }}"{{ if eq $currentPage.RelPermalink .RelPermalink }} class="active" aria-current="page"{{ end }}>
+                        {{ .Title }}
+                      </a>
+                    </li>
+                  {{ end }}
+                </ul>
+              {{ end }}
+            </li>
+          {{ end }}
+        </ul>
+      {{ else }}
+        <ul class="sidebar-nav">
+          <li>
+            <a href="{{ .RelPermalink }}"{{ if eq $currentPage.RelPermalink .RelPermalink }} class="active"{{ end }}>
+              {{ .Title }}
+            </a>
+          </li>
+        </ul>
+      {{ end }}
+    </div>
+  {{ end }}
+</nav>

@@ -1,0 +1,15 @@
+# theme.toml — audiodoc hugo theme metadata
+
+name = "audiodoc"
+license = "MIT"
+licenselink = "https://github.com/Delexandra/audiodoc/blob/main/LICENSE"
+description = "Dark-themed documentation for audio software, creative tools, and synth manuals. Blueprint aesthetic with gold accents, interactive sidebar, audio player shortcodes."
+homepage = "https://github.com/Delexandra/audiodoc"
+demosite = "https://audiodoc-demo.netlify.app"
+tags = ["documentation", "dark", "audio", "music", "creative", "synth", "responsive", "search", "sidebar"]
+features = ["dark theme", "search", "sidebar navigation", "audio player", "callout shortcodes", "parameter tables", "responsive", "seo"]
+min_version = "0.120.0"
+
+[author]
+  name = "system delexandra"
+  homepage = "https://delexandra.com"
